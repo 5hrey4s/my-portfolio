@@ -44,7 +44,7 @@ const projects = [
         image: "/pexels-ishahidsultan-6595970.jpg",
         tools: ["React", "Tailwind CSS", "Figma", "Storybook"],
         link: "https://splitter-app.vercel.app/",
-        sourceCode: "https://github.com/5hrey4s/splitter-app",
+        sourceCode: "https://github.com/5hrey4s/bill-splitter-app",
         features: [
             "Calculate and display total bill per person",
             "Responsive UI for different screen sizes",

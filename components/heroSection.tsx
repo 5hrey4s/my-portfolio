@@ -12,63 +12,63 @@ import ContactSection from './ContactSection'
 
 const projects = [
   {
-      id: 1,
-      title: "Library Management App",
-      description: "A scalable library management system utilizing modern technologies and best practices.",
-      image: "/pexels-joshsorenson-990432.jpg",
-      tools: ["Next.js", "TypeScript", "Tailwind CSS", "PostgreSQL", "Vitest"],
-      link: "https://library-management-app-six.vercel.app/",
-      sourceCode: "https://github.com/5hrey4s/Library-management-app",
-      features: [
-          "Role-based access control for administrators",
-          "Google and credentials-based authentication with NextAuth",
-          "Search, pagination, sorting, and role-based access",
-          "Test-driven development with Vitest"
-      ],
-      challenges: [
-          "Implementing robust authentication and role-based access control",
-          "Ensuring scalability of database with Vercel PostgreSQL",
-          "Deploying for global accessibility with Vercel"
-      ],
-      learnings: [
-          "Advanced authentication with NextAuth",
-          "Test-driven development using Vitest",
-          "Optimizing database for scalability with Vercel PostgreSQL"
-      ],
-      futureImprovements: [
-          "Add support for additional library features such as e-books",
-          "Enhance admin dashboard with more controls",
-          "Improve user interface for a more intuitive experience"
-      ]
+    id: 1,
+    title: "Library Management App",
+    description: "A scalable library management system utilizing modern technologies and best practices.",
+    image: "/pexels-joshsorenson-990432.jpg",
+    tools: ["Next.js", "TypeScript", "Tailwind CSS", "PostgreSQL", "Vitest"],
+    link: "https://library-management-app-six.vercel.app/",
+    sourceCode: "https://github.com/5hrey4s/Library-management-app",
+    features: [
+      "Role-based access control for administrators",
+      "Google and credentials-based authentication with NextAuth",
+      "Search, pagination, sorting, and role-based access",
+      "Test-driven development with Vitest"
+    ],
+    challenges: [
+      "Implementing robust authentication and role-based access control",
+      "Ensuring scalability of database with Vercel PostgreSQL",
+      "Deploying for global accessibility with Vercel"
+    ],
+    learnings: [
+      "Advanced authentication with NextAuth",
+      "Test-driven development using Vitest",
+      "Optimizing database for scalability with Vercel PostgreSQL"
+    ],
+    futureImprovements: [
+      "Add support for additional library features such as e-books",
+      "Enhance admin dashboard with more controls",
+      "Improve user interface for a more intuitive experience"
+    ]
   },
   {
-      id: 2,
-      title: "Splitter App",
-      description: "A responsive React-based web application designed for bill splitting.",
-      image: "/pexels-ishahidsultan-6595970.jpg",
-      tools: ["React", "Tailwind CSS", "Figma", "Storybook"],
-      link: "https://splitter-app.vercel.app/",
-      sourceCode: "https://github.com/5hrey4s/splitter-app",
-      features: [
-          "Calculate and display total bill per person",
-          "Responsive UI for different screen sizes",
-          "Tested UI components with Storybook"
-      ],
-      challenges: [
-          "Designing a user-friendly interface with Figma",
-          "Implementing responsive design with Tailwind CSS",
-          "Ensuring accurate calculations for bill splitting"
-      ],
-      learnings: [
-          "UI/UX design using Figma",
-          "Component testing with Storybook",
-          "Responsive design with Tailwind CSS"
-      ],
-      futureImprovements: [
-          "Add more customizable options for bill splitting",
-          "Integrate with payment gateways for seamless transactions",
-          "Allow users to save and track bill histories"
-      ]
+    id: 2,
+    title: "Splitter App",
+    description: "A responsive React-based web application designed for bill splitting.",
+    image: "/pexels-ishahidsultan-6595970.jpg",
+    tools: ["React", "Tailwind CSS", "Figma", "Storybook"],
+    link: "https://splitter-app.vercel.app/",
+    sourceCode: "https://github.com/5hrey4s/bill-splitter-app",
+    features: [
+      "Calculate and display total bill per person",
+      "Responsive UI for different screen sizes",
+      "Tested UI components with Storybook"
+    ],
+    challenges: [
+      "Designing a user-friendly interface with Figma",
+      "Implementing responsive design with Tailwind CSS",
+      "Ensuring accurate calculations for bill splitting"
+    ],
+    learnings: [
+      "UI/UX design using Figma",
+      "Component testing with Storybook",
+      "Responsive design with Tailwind CSS"
+    ],
+    futureImprovements: [
+      "Add more customizable options for bill splitting",
+      "Integrate with payment gateways for seamless transactions",
+      "Allow users to save and track bill histories"
+    ]
   }
 ];
 
@@ -122,18 +122,18 @@ export default function PortfolioPage() {
   return (
     <div className="relative min-h-screen overflow-hidden">
 
-<div className="fixed inset-0 z-0">
-  <div className="relative w-full h-full">
-    <Image
-      src="/jeremy-bishop-G9i_plbfDgk-unsplash.jpg"
-      alt="Background"
-      fill
-      quality={100}
-      className="opacity-50 object-cover" // Use 'object-cover' for CSS object-fit
-    />
-  </div>
-  <div className="absolute inset-0 bg-gradient-to-br from-gray-900 to-gray-800 opacity-90 backdrop-blur-xl"></div>
-</div>
+      <div className="fixed inset-0 z-0">
+        <div className="relative w-full h-full">
+          <Image
+            src="/jeremy-bishop-G9i_plbfDgk-unsplash.jpg"
+            alt="Background"
+            fill
+            quality={100}
+            className="opacity-50 object-cover" // Use 'object-cover' for CSS object-fit
+          />
+        </div>
+        <div className="absolute inset-0 bg-gradient-to-br from-gray-900 to-gray-800 opacity-90 backdrop-blur-xl"></div>
+      </div>
 
 
       <div className="relative z-10">
@@ -147,9 +147,11 @@ export default function PortfolioPage() {
                 transition={{ duration: 0.5 }}
               >
                 <Link href="/" className="text-2xl font-serif font-bold tracking-tight text-teal-400 hover:text-teal-300 transition-colors duration-200">
-                  JD
+                  SS
                 </Link>
+
               </motion.div>
+
               <nav className="hidden md:flex space-x-4">
                 {navItems.map((item, index) => (
                   <motion.div
@@ -251,7 +253,7 @@ export default function PortfolioPage() {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.8 }}
               >
-                Hi, I&apos;m John Doe
+                Hi, I&apos;m Shreyas Salyan
               </motion.h1>
               <motion.h2
                 className="text-2xl md:text-3xl mb-8 text-gray-300"
@@ -319,22 +321,22 @@ export default function PortfolioPage() {
             </div>
           </section>
 
-          <section ref={contactRef} id="contact" className="py-20">
+          <section ref={contactRef} id="contact">
             <ContactSection />
           </section>
         </main>
 
         <footer className="relative z-10 bg-gray-900/80 backdrop-blur-sm py-6 px-4 sm:px-6 lg:px-8 text-white">
           <div className="container mx-auto flex flex-col md:flex-row justify-between items-center">
-            <p>&copy; 2024 John Doe. All rights reserved.</p>
+            <p>&copy; 2024 Shreyas Salyan. All rights reserved.</p>
             <div className="flex space-x-4 mt-4 md:mt-0">
-              <a href="#" className="text-gray-400 hover:text-teal-400 transition-colors duration-200">
+              <a href="https://github.com/5hrey4s/" className="text-gray-400 hover:text-teal-400 transition-colors duration-200">
                 <Github className="w-6 h-6" />
               </a>
-              <a href="#" className="text-gray-400 hover:text-teal-400 transition-colors duration-200">
+              <a href="https://www.linkedin.com/in/shreyas-salyan-526a9a265/" className="text-gray-400 hover:text-teal-400 transition-colors duration-200">
                 <Linkedin className="w-6 h-6" />
               </a>
-              <a href="#" className="text-gray-400 hover:text-teal-400 transition-colors duration-200">
+              <a href="mailto:shreyassalyan917@gmail.com" className="text-gray-400 hover:text-teal-400 transition-colors duration-200">
                 <Mail className="w-6 h-6" />
               </a>
             </div>
