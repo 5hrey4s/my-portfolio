@@ -9,6 +9,8 @@ import { Menu, X, Linkedin, Mail, Github } from 'lucide-react'
 import AboutSection from './about'
 import ProjectCard from './ProjectCard'
 import ContactSection from './ContactSection'
+import HireMeModal from "./HireMeModal";
+
 
 const projects = [
   {
@@ -81,6 +83,8 @@ export default function PortfolioPage() {
   const aboutRef = useRef<HTMLElement>(null)
   const projectsRef = useRef<HTMLElement>(null)
   const contactRef = useRef<HTMLElement>(null)
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
 
   const navItems = useMemo(() => [
     { name: 'Home', ref: homeRef },
@@ -118,6 +122,7 @@ export default function PortfolioPage() {
     }
     setIsMobileMenuOpen(false)
   }
+
 
   return (
     <div className="relative min-h-screen overflow-hidden">
@@ -177,10 +182,14 @@ export default function PortfolioPage() {
               >
                 <Button
                   className="bg-teal-500 hover:bg-teal-600 text-white font-bold py-2 px-4 rounded-full transition-all duration-200 transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-teal-400 focus:ring-opacity-50"
-                  onClick={() => scrollToSection(contactRef)}
+                  onClick={() => {scrollToSection(contactRef);
+                    setIsModalOpen(true)
+                  }}
                 >
                   Hire Me
                 </Button>
+                <HireMeModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />
+
               </motion.div>
               <div className="md:hidden">
                 <Button
