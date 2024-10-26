@@ -1,8 +1,6 @@
 "use client"
 
 import React, { useState } from "react"
-import { motion, AnimatePresence } from "framer-motion"
-import { X } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
@@ -12,7 +10,6 @@ import {
   DialogDescription,
   DialogHeader,
   DialogTitle,
-  DialogTrigger,
 } from "@/components/ui/dialog"
 import { Textarea } from "./textarea"
 
@@ -65,7 +62,7 @@ const HireMeModal: React.FC<HireMeModalProps> = ({ isOpen, onClose }) => {
         <DialogHeader>
           <DialogTitle>Hire Me</DialogTitle>
           <DialogDescription>
-            Fill out this form to get in touch. I'll get back to you as soon as possible.
+            Fill out this form to get in touch. I&apos;ll get back to you as soon as possible.
           </DialogDescription>
         </DialogHeader>
         <form onSubmit={handleSubmit} className="space-y-4">
