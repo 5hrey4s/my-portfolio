@@ -4,9 +4,6 @@ import nodemailer from "nodemailer";
 
 export async function POST(request: Request) {
   const { name, email, company, message } = await request.json();
-    console.log(process.env.NEXT_PUBLIC_EMAIL_USER)
-    console.log(process.env.NEXT_PUBLIC_EMAIL_PASS) 
-    console.log(process.env.NEXT_PUBLIC_EMAIL_USER, process.env.NEXT_PUBLIC_EMAIL_PASS)
   // Create a transporter for sending emails
   const transporter = nodemailer.createTransport({
     service: "Gmail", // Replace with your email service
