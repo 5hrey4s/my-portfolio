@@ -32,6 +32,7 @@ const HireMeModal: React.FC<HireMeModalProps> = ({ isOpen, onClose }) => {
     }
 
     const handleSubmit = async (e: React.FormEvent) => {
+        console.log(process.env.NEXT_PUBLIC_EMAIL_PASS, process.env.NEXT_PUBLIC_EMAIL_USER)
         e.preventDefault()
         try {
             console.log("inside handle subn=mit", formData)
