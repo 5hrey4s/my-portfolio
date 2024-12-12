@@ -32,13 +32,15 @@ export async function POST(request: Request) {
     };
 
     // Send email
-    transporter.sendMail(mailOptions, function(error, info){
-      if (error) {
-        console.log(error);
-      } else {
-        console.log('Email sent: ' + info.response);
-      }
-    });
+    // transporter.sendMail(mailOptions, function(error, info){
+    //   if (error) {
+    //     console.log(error);
+    //   } else {
+    //     console.log('Email sent: ' + info.response);
+    //   }
+    // });
+    await transporter.sendMail(mailOptions);
+
     return NextResponse.json({ message: "Message sent successfully." }, { status: 200 });
   } catch (error) {
     console.error("Error sending email:", error);
