@@ -239,17 +239,14 @@ export default function PortfolioPage() {
                   transition={{ duration: 0.3, delay: navItems.length * 0.1 }}
                 >
                   <Button
-                    className="mt-6 bg-teal-500 hover:bg-teal-600 text-white font-bold py-2 px-6 rounded-full transition-all duration-200 transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-teal-400 focus:ring-opacity-50"
-                    onClick={() => {
-                      scrollToSection(contactRef)
-                      setIsMobileMenuOpen(false)
-                    }}
-                  >
-                    Hire Me
-                  </Button>
+                  className="bg-teal-500 hover:bg-teal-600 text-white font-bold py-2 px-4 rounded-full transition-all duration-200 transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-teal-400 focus:ring-opacity-50"
+                  onClick={() => {scrollToSection(contactRef);
+                    setIsModalOpen(true)
+                  }}
+                >
+                  Hire Me
+                </Button>
                 <HireMeModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />
-
-                </motion.div>
               </div>
             </motion.div>
           )}
@@ -288,13 +285,14 @@ export default function PortfolioPage() {
                 transition={{ duration: 0.8, delay: 0.6 }}
               >
                 <Button
-                  className="bg-teal-500 hover:bg-teal-600 text-white font-bold py-3 px-8 rounded-full transition-all duration-200 transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-teal-400 focus:ring-opacity-50"
-                  onClick={() => scrollToSection(contactRef)}
+                  className="bg-teal-500 hover:bg-teal-600 text-white font-bold py-2 px-4 rounded-full transition-all duration-200 transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-teal-400 focus:ring-opacity-50"
+                  onClick={() => {scrollToSection(contactRef);
+                    setIsModalOpen(true)
+                  }}
                 >
                   Hire Me
                 </Button>
                 <HireMeModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />
-
               </motion.div>
             </div>
           </section>
