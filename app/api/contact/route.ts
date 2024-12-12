@@ -25,11 +25,13 @@ export async function POST(request: Request) {
 
     // Email options
     const mailOptions = {
-      from: email,
-      to: process.env.NEXT_PUBLIC_EMAIL_USER, // Your email to receive messages
+      from: process.env.NEXT_PUBLIC_EMAIL_USER, // Your email will still be the sender
+      to: process.env.NEXT_PUBLIC_EMAIL_USER, // Your email where the contact form is sent
+      replyTo: email, // This is the user's email for the reply
       subject: `New Contact Form Submission from ${name}`,
       text: `Name: ${name}\nEmail: ${email}\nCompany: ${company}\nMessage: ${message}`,
     };
+    
 
     // Send email
     // transporter.sendMail(mailOptions, function(error, info){
