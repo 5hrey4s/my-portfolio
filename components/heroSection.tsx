@@ -182,9 +182,9 @@ export default function PortfolioPage() {
               >
                 <Button
                   className="bg-teal-500 hover:bg-teal-600 text-white font-bold py-2 px-4 rounded-full transition-all duration-200 transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-teal-400 focus:ring-opacity-50"
-                  onClick={() => {scrollToSection(contactRef);
+                  onClick={() => 
                     setIsModalOpen(true)
-                  }}
+                  }
                 >
                   Hire Me
                 </Button>
@@ -240,9 +240,9 @@ export default function PortfolioPage() {
                 >
                 <Button
                   className="bg-teal-500 hover:bg-teal-600 text-white font-bold py-2 px-4 rounded-full transition-all duration-200 transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-teal-400 focus:ring-opacity-50"
-                  onClick={() => {scrollToSection(contactRef);
+                  onClick={() => 
                     setIsModalOpen(true)
-                  }}
+                  }
                 >
                   Hire Me
                 </Button>
@@ -287,9 +287,9 @@ export default function PortfolioPage() {
               >
                <Button
                   className="bg-teal-500 hover:bg-teal-600 text-white font-bold py-2 px-4 rounded-full transition-all duration-200 transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-teal-400 focus:ring-opacity-50"
-                  onClick={() => {scrollToSection(contactRef);
+                  onClick={() => 
                     setIsModalOpen(true)
-                  }}
+                  }
                 >
                   Hire Me
                 </Button>
