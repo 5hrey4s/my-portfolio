@@ -180,6 +180,14 @@ export default function PortfolioPage() {
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ duration: 0.5 }}
               >
+                <Button
+                  className="bg-teal-500 hover:bg-teal-600 text-white font-bold py-2 px-4 rounded-full transition-all duration-200 transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-teal-400 focus:ring-opacity-50"
+                  onClick={() => {scrollToSection(contactRef);
+                    setIsModalOpen(true)
+                  }}
+                >
+                  Hire Me
+                </Button>
                 <HireMeModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />
 
               </motion.div>
@@ -230,7 +238,16 @@ export default function PortfolioPage() {
                   exit={{ opacity: 0, y: 20 }}
                   transition={{ duration: 0.3, delay: navItems.length * 0.1 }}
                 >
-                                                    <HireMeModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />
+                  <Button
+                    className="mt-6 bg-teal-500 hover:bg-teal-600 text-white font-bold py-2 px-6 rounded-full transition-all duration-200 transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-teal-400 focus:ring-opacity-50"
+                    onClick={() => {
+                      scrollToSection(contactRef)
+                      setIsMobileMenuOpen(false)
+                    }}
+                  >
+                    Hire Me
+                  </Button>
+                <HireMeModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />
 
                 </motion.div>
               </div>
@@ -276,6 +293,8 @@ export default function PortfolioPage() {
                 >
                   Hire Me
                 </Button>
+                <HireMeModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />
+
               </motion.div>
             </div>
           </section>
