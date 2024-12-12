@@ -34,7 +34,7 @@ const HireMeModal: React.FC<HireMeModalProps> = ({ isOpen, onClose }) => {
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault()
         try {
-            console.log(process.env.EMAIL_USER);
+            console.log(process.env.NEXT_PUBLIC_EMAIL_USER);
             console.log("inside handle subn=mit", formData)
             const response = await fetch("/api/contact", {
                 method: "POST",
