@@ -32,11 +32,16 @@ export async function POST(request: Request) {
     };
 
     // Send email
-    await transporter.sendMail(mailOptions);
-
+    transporter.sendMail(mailOptions, function(error, info){
+      if (error) {
+        console.log(error);
+      } else {
+        console.log('Email sent: ' + info.response);
+      }
+    });
     return NextResponse.json({ message: "Message sent successfully." }, { status: 200 });
   } catch (error) {
     console.error("Error sending email:", error);
-    return NextResponse.json({ error: "Failed to send message." }, { status: 500 });
+    return NextResponse.json({ error: `${error}`, }, { status: 500 });
   }
 }
