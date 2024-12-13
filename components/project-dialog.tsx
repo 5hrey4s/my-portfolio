@@ -5,7 +5,7 @@ import { motion, AnimatePresence } from 'framer-motion'
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { Button } from '@/components/ui/button'
-import { ChevronDown, ChevronLeft, ChevronRight, ExternalLink, Code, Github } from 'lucide-react'
+import { ChevronDown, ChevronLeft, ChevronRight, ExternalLink, Github } from 'lucide-react'
 import Link from 'next/link'
 
 interface Project {
