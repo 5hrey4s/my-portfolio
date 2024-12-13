@@ -6,6 +6,7 @@ import { motion } from 'framer-motion'
 import { Button } from '@/components/ui/button'
 import { Github, ExternalLink, Eye } from 'lucide-react'
 import ProjectDialog from './project-dialog'
+import Link from 'next/link'
 
 interface ProjectCardProps {
     id: number
@@ -65,24 +66,29 @@ export default function ProjectCard({ id, title, description, image, tags, githu
                         ))}
                     </div>
                     <div className="flex justify-between items-center mt-auto">
-                        <Button
+                    <Button
                             variant="outline"
                             size="sm"
                             className="text-teal-400 border-teal-400 hover:bg-teal-400 hover:text-gray-900"
-                            onClick={() => window.open(githubLink, '_blank')}
+                            asChild
                         >
-                            <Github className="w-4 h-4 mr-2" />
-                            GitHub
+                            <Link href={githubLink} target="_blank" rel="noopener noreferrer">
+                                <Github className="w-4 h-4 mr-2" />
+                                GitHub
+                            </Link>
                         </Button>
                         <Button
                             variant="outline"
                             size="sm"
                             className="text-teal-400 border-teal-400 hover:bg-teal-400 hover:text-gray-900"
-                            onClick={() => window.open(liveLink, '_blank')}
+                            asChild
                         >
-                            <ExternalLink className="w-4 h-4 mr-2" />
-                            Live Demo
+                            <Link href={liveLink} target="_blank" rel="noopener noreferrer">
+                                <ExternalLink className="w-4 h-4 mr-2" />
+                                Live Demo
+                            </Link>
                         </Button>
+
                     </div>
                     <Button
                         variant="default"

@@ -5,7 +5,8 @@ import { motion, AnimatePresence } from 'framer-motion'
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { Button } from '@/components/ui/button'
-import { ChevronDown, ChevronLeft, ChevronRight, ExternalLink, Code } from 'lucide-react'
+import { ChevronDown, ChevronLeft, ChevronRight, ExternalLink, Code, Github } from 'lucide-react'
+import Link from 'next/link'
 
 interface Project {
   id: number
@@ -167,21 +168,28 @@ export default function ResponsiveProjectDialog({ isOpen, onClose, projects, ini
           </div>
           <div className="flex flex-col p-4 sm:p-6 border-t border-gray-800 space-y-4">
             <div className="flex flex-col sm:flex-row space-y-2 sm:space-y-0 sm:space-x-4 w-full">
-              <Button
-                onClick={() => window.open(project.link, '_blank')}
-                className="w-full sm:w-auto bg-teal-500 hover:bg-teal-600 text-white text-sm"
-              >
-                <ExternalLink className="w-4 h-4 mr-2" />
-                Live Project
-              </Button>
-              <Button
-                onClick={() => window.open(project.sourceCode, '_blank')}
-                variant="outline"
-                className="w-full sm:w-auto text-teal-400 border-teal-400 hover:bg-teal-400 hover:text-gray-900 text-sm"
-              >
-                <Code className="w-4 h-4 mr-2" />
-                Source Code
-              </Button>
+            <Button
+                            variant="outline"
+                            size="sm"
+                            className="text-teal-400 border-teal-400 hover:bg-teal-400 hover:text-gray-900"
+                            asChild
+                        >
+                            <Link href={project.sourceCode} target="_blank" rel="noopener noreferrer">
+                                <Github className="w-4 h-4 mr-2" />
+                                GitHub
+                            </Link>
+                        </Button>
+                        <Button
+                            variant="outline"
+                            size="sm"
+                            className="text-teal-400 border-teal-400 hover:bg-teal-400 hover:text-gray-900"
+                            asChild
+                        >
+                            <Link href={project.link} target="_blank" rel="noopener noreferrer">
+                                <ExternalLink className="w-4 h-4 mr-2" />
+                                Live Demo
+                            </Link>
+                        </Button>
             </div>
             <div className="flex items-center justify-between w-full">
               <Button
