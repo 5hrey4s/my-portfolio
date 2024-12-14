@@ -3,7 +3,7 @@ import { NextResponse } from 'next/server';
 export async function POST(request: Request) {
     const { message } = await request.json(); // Get user message from the request body
 
-    const API_URL = "https://api-inference.huggingface.co/models/gpt2"; // Replace with your desired model
+    const API_URL = "https://api-inference.huggingface.co/models/facebook/blenderbot-400M-distill";
     const API_TOKEN = process.env.NEXT_PUBLIC_HUGGINGFACE_API_KEY; // Store API token securely
 
     try {
