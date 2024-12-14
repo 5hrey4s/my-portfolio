@@ -13,7 +13,7 @@ export async function POST(request: Request) {
   try {
     // Send message to OpenAI's GP  T model
     const response = await openai.chat.completions.create({
-      model: 'gpt-3.5-turbo', // or 'gpt-3.5-turbo'
+      model: 'text-davinci-003', // or 'gpt-3.5-turbo'
       messages: [{ role: 'user', content: message }],
     });
     // Extract response from OpenAI
