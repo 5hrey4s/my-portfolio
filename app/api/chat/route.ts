@@ -29,7 +29,7 @@ export async function POST(request: Request) {
     // Parse the response and send the chatbot reply
     
     // const botResponse = data.generated_text || "I couldn't generate a response.";
-    const botResponse = data;
+    const botResponse = data.reply?.[0]?.generated_text || "I couldn't generate a response.";
     return NextResponse.json({ reply: botResponse });
   } catch (error: unknown) {
     // Ensure error is of type Error before using its properties
