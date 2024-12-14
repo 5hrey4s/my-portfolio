@@ -10,11 +10,12 @@ const openai = new OpenAI({
 
 export async function POST(request: Request) {
   const { message } = await request.json(); // Get message from request body
-
+  console.log(openai)
+    console.log(process.env.NEXT_PUBLIC_OPENAI_API_KEY)
   try {
     // Send message to OpenAI's GP  T model
     const response = await openai.chat.completions.create({
-      model: 'gpt-4', // or 'gpt-3.5-turbo'
+      model: 'gpt-3.5-turbo', // or 'gpt-3.5-turbo'
       messages: [{ role: 'user', content: message }],
     });
     console.log(response)
