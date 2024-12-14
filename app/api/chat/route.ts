@@ -12,19 +12,19 @@ export async function POST(request: Request) {
   const { message } = await request.json(); // Get message from request body
 
   try {
-    // Send message to OpenAI's GPT model
+    // Send message to OpenAI's GP  T model
     const response = await openai.chat.completions.create({
       model: 'gpt-4', // or 'gpt-3.5-turbo'
       messages: [{ role: 'user', content: message }],
     });
-
+    console.log(response)
     // Extract response from OpenAI
     const botResponse = response.choices[0].message.content;
-
+    console.log(botResponse)
     // Send back the response
     return NextResponse.json({ reply: botResponse });
   } catch (error) {
     console.error('Error with OpenAI API:', error);
-    return NextResponse.json({ error: 'Failed to get response from bot' }, { status: 500 });
+    return NextResponse.json({ error: `${error}` }, { status: 500 });
   }
 }
