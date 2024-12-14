@@ -14,6 +14,8 @@ const Chatbot = () => {
   const [isLoading, setIsLoading] = useState<boolean>(false)
 
   const handleMessageSubmit = async (event: React.FormEvent) => {
+    console.log(process.env.NEXT_PUBLIC_OPENAI_API_KEY)
+
     event.preventDefault()
 
     if (!input.trim()) return

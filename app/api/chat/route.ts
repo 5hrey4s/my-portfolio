@@ -10,18 +10,14 @@ const openai = new OpenAI({
 
 export async function POST(request: Request) {
   const { message } = await request.json(); // Get message from request body
-  console.log(openai)
-    console.log(process.env.NEXT_PUBLIC_OPENAI_API_KEY)
   try {
     // Send message to OpenAI's GP  T model
     const response = await openai.chat.completions.create({
-      model: 'gpt-3.5-turbo', // or 'gpt-3.5-turbo'
+      model: 'GPT-4o', // or 'gpt-3.5-turbo'
       messages: [{ role: 'user', content: message }],
     });
-    console.log(response)
     // Extract response from OpenAI
     const botResponse = response.choices[0].message.content;
-    console.log(botResponse)
     // Send back the response
     return NextResponse.json({ reply: botResponse });
   } catch (error) {
