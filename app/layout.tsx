@@ -38,12 +38,12 @@ export default function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
         {children}
-        <df-messenger
+        {/* <df-messenger
                     intent="WELCOME"
                     chat-title="PortfolioBot"
                     agent-id="myportfolio-444813"
                     language-code="en"
-                ></df-messenger>
+                ></df-messenger> */}
         <FloatingChatbot />
       </body>
     </html>
