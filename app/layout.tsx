@@ -27,10 +27,23 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
+       <head>
+                {/* Add the Dialogflow Messenger script */}
+                <script
+                    src="https://www.gstatic.com/dialogflow-console/fast/messenger/bootstrap.js?v=1"
+                    async
+                ></script>
+            </head>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
         {children}
+        <df-messenger
+                    intent="WELCOME"
+                    chat-title="PortfolioBot"
+                    agent-id="your-dialogflow-agent-id"
+                    language-code="en"
+                ></df-messenger>
         <FloatingChatbot />
       </body>
     </html>
