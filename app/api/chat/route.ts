@@ -1,42 +1,49 @@
 import { NextResponse } from 'next/server';
+import { SessionsClient } from '@google-cloud/dialogflow';
+import path from 'path';
+import { v4 as uuidv4 } from 'uuid';
+const sessionId = uuidv4(); // Example: "d9b2d63d-a233-4123-847d-7d2456d54a77"
 
-export async function POST(request: Request) {
-    const { message } = await request.json(); // Get user message from the request body
-
-    const API_URL = "https://api-inference.huggingface.co/models/facebook/blenderbot-400M-distill";
-    const API_TOKEN = process.env.NEXT_PUBLIC_HUGGINGFACE_API_KEY; // Store API token securely
-
+export async function POST(req: Request) {
     try {
-        // Call Hugging Face Inference API
-        const response = await fetch(API_URL, {
-            method: 'POST',
-            headers: {
-                Authorization: `Bearer ${API_TOKEN}`, // Pass API token
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({
-                inputs: message, // Pass the user's message
-            }),
-        });
+        const body = await req.json();
+        const message = body.message;
 
-        const data = await response.json();
-
-        if (data.error) {
-            console.error('Hugging Face API Error:', data.error);
-            return NextResponse.json({ error: data.error }, { status: 500 });
+        if (!message) {
+            return NextResponse.json({ error: 'Message is required' }, { status: 400 });
         }
 
-        // Parse the response and send the chatbot reply
+        const projectId = 'myportfolio-444813'; // Replace with your actual project ID
 
-        // const botResponse = data.generated_text || "I couldn't generate a response.";
-        const botResponse = Array.isArray(data)
-            ? data[0]?.generated_text || "I couldn't generate a response."
-            : data.generated_text || "I couldn't generate a response.";
-        return NextResponse.json({ reply: botResponse });
-    } catch (error: unknown) {
-        // Ensure error is of type Error before using its properties
+        // Path to the service account key file
+        const keyPath = path.join(process.cwd(), 'secrets', 'your-key-file.json');
+
+        // Initialize the Dialogflow client
+        const client = new SessionsClient({ keyFilename: keyPath });
+
+        // Generate the session path manually
+        const sessionPath = `projects/${projectId}/agent/sessions/${sessionId}`;
+
+        // Dialogflow detectIntent request
+        const request = {
+            session: sessionPath,
+            queryInput: {
+                text: {
+                    text: message,
+                    languageCode: 'en', // Change the language if required
+                },
+            },
+        };
+
+        // Call Dialogflow to detect intent
+        const [response] = await client.detectIntent(request);
+        const botReply = response.queryResult?.fulfillmentText || 'No response from bot';
+
+        // Return the bot's response
+        return NextResponse.json({ reply: botReply });
+    } catch (error) {
         if (error instanceof Error) {
-            console.error('Error with Hugging Face API:', error.message);
+            console.error('Dialogflow API Error:', error.message);
             return NextResponse.json({ error: error.message }, { status: 500 });
         } else {
             console.error('Unexpected error type:', error);
