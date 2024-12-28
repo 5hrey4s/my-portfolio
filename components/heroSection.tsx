@@ -341,7 +341,6 @@ export default function PortfolioPage() {
 
         <footer className="relative z-10 bg-gray-900/80 backdrop-blur-sm py-6 px-4 sm:px-6 lg:px-8 text-white">
           <div className="container mx-auto flex flex-col md:flex-row justify-between items-center">
-            <p>&copy; 2024 Shreyas Salyan. All rights reserved.</p>
             <div className="flex space-x-4 mt-4 md:mt-0">
               <a href="https://github.com/5hrey4s/" className="text-gray-400 hover:text-teal-400 transition-colors duration-200">
                 <Github className="w-6 h-6" />

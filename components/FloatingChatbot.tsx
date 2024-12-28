@@ -11,6 +11,7 @@ import { cn } from "@/lib/utils"
 interface Message {
   sender: 'You' | 'Bot' | 'Error';
   content: string;
+  isLoading?: boolean;
 }
 
 const Chatbot: React.FC = () => {
@@ -34,6 +35,9 @@ const Chatbot: React.FC = () => {
     setIsLoading(true)
     setInput('')
 
+    // Add a loading message
+    setMessages((prevMessages) => [...prevMessages, { sender: 'Bot', content: '', isLoading: true }])
+
     try {
       const response = await fetch('/api/chat', {
         method: 'POST',
@@ -46,18 +50,21 @@ const Chatbot: React.FC = () => {
       const data = await response.json()
 
       if (response.ok) {
-        setMessages((prevMessages) => [...prevMessages, { sender: 'Bot', content: data.reply }])
+        setMessages((prevMessages) => [
+          ...prevMessages.slice(0, -1),
+          { sender: 'Bot', content: data.reply }
+        ])
       } else {
         setMessages((prevMessages) => [
-          ...prevMessages,
-          { sender: 'Error', content: data.error || 'Something went wrong' },
+          ...prevMessages.slice(0, -1),
+          { sender: 'Error', content: data.error || 'Something went wrong' }
         ])
       }
     } catch (error) {
       console.error('Error:', error)
       setMessages((prevMessages) => [
-        ...prevMessages,
-        { sender: 'Error', content: 'Could not connect to the bot' },
+        ...prevMessages.slice(0, -1),
+        { sender: 'Error', content: 'Could not connect to the bot' }
       ])
     } finally {
       setIsLoading(false)
@@ -87,18 +94,14 @@ const Chatbot: React.FC = () => {
                   )}
                 >
                   <p className="font-semibold">{msg.sender}</p>
-                  <p>{msg.content}</p>
+                  {msg.isLoading ? (
+                    <p className="animate-pulse">Typing...</p>
+                  ) : (
+                    <p>{msg.content}</p>
+                  )}
                 </div>
               </div>
             ))}
-            {isLoading && (
-              <div className="flex justify-start">
-                <div className="bg-muted max-w-[80%] rounded-lg px-3 py-2 text-sm">
-                  <p className="font-semibold">Bot</p>
-                  <p className="animate-pulse">Typing...</p>
-                </div>
-              </div>
-            )}
           </div>
         </ScrollArea>
       </CardContent>
@@ -111,7 +114,7 @@ const Chatbot: React.FC = () => {
             placeholder="Type a message..."
             className="flex-grow"
           />
-          <Button type="submit" size="icon">
+          <Button type="submit" size="icon" disabled={isLoading}>
             <Send className="h-4 w-4" />
           </Button>
         </form>
@@ -122,6 +125,16 @@ const Chatbot: React.FC = () => {
 
 const FloatingChatbot: React.FC = () => {
   const [isOpen, setIsOpen] = useState<boolean>(false)
+  const [isAnimating, setIsAnimating] = useState<boolean>(false)
+
+  useEffect(() => {
+    const animationInterval = setInterval(() => {
+      setIsAnimating(true)
+      setTimeout(() => setIsAnimating(false), 1000)
+    }, 5000)
+
+    return () => clearInterval(animationInterval)
+  }, [])
 
   return (
     <div className="fixed bottom-4 right-4 z-50">
@@ -133,7 +146,11 @@ const FloatingChatbot: React.FC = () => {
       <Button
         onClick={() => setIsOpen(!isOpen)}
         size="icon"
-        className="w-12 h-12 rounded-full shadow-lg"
+        className={cn(
+          "w-12 h-12 rounded-full shadow-lg transition-transform duration-300",
+          isAnimating && !isOpen && "animate-bounce"
+        )}
+        aria-label={isOpen ? "Close chat" : "Open chat"}
       >
         {isOpen ? <X className="h-6 w-6" /> : <MessageCircle className="h-6 w-6" />}
       </Button>
