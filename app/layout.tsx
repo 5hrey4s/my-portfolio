@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import localFont from "next/font/local";
 import "./globals.css";
 import FloatingChatbot from "@/components/FloatingChatbot";
+import { Toaster } from "@/components/ui/toaster";
 
 
 const geistSans = localFont({
@@ -45,6 +46,8 @@ export default function RootLayout({
                     language-code="en"
                 ></df-messenger> */}
         <FloatingChatbot />
+        <Toaster />
+
       </body>
     </html>
   );
