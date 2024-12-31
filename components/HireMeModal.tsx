@@ -12,6 +12,7 @@ import {
     DialogTitle,
 } from "@/components/ui/dialog"
 import { Textarea } from "./textarea"
+import { useToast } from "@/components/ui/use-toast"
 
 interface HireMeModalProps {
     isOpen: boolean
@@ -31,31 +32,45 @@ const HireMeModal: React.FC<HireMeModalProps> = ({ isOpen, onClose }) => {
         setFormData({ ...formData, [e.target.name]: e.target.value })
     }
 
-    const handleSubmit = async (e: React.FormEvent) => {
-        console.log(process.env.NEXT_PUBLIC_EMAIL_PASS, process.env.NEXT_PUBLIC_EMAIL_USER)
-        e.preventDefault()
-        try {
-            console.log("inside handle subn=mit", formData)
-            const response = await fetch("/api/contact", {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                },
-                body: JSON.stringify(formData),
-            })
-            console.log(response)
-            if (response.ok) {
-                alert("Message sent successfully!")
-                setFormData({ name: "", email: "", company: "", message: "" })
-                onClose()
-            } else {
-                alert("Failed to send message.")
-            }
-        } catch (error) {
-            console.error("Error:", error)
-            alert("An error occurred. Please try again.")
-        }
+    const { toast } = useToast()
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault()
+    try {
+      const response = await fetch("/api/contact", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData),
+      })
+      if (response.ok) {
+        toast({
+          title: "Message sent successfully!",
+          description: "Thank you for reaching out. I'll get back to you soon.",
+          duration: 5000,
+        })
+        setFormData({ name: "", email: "", company: "", message: "" })
+        onClose()
+      } else {
+        toast({
+          title: "Failed to send message",
+          description: "Please try again later.",
+          variant: "destructive",
+          duration: 5000,
+        })
+      }
+    } catch (error) {
+      console.error("Error:", error)
+      toast({
+        title: "An error occurred",
+        description: "Please try again later.",
+        variant: "destructive",
+        duration: 5000,
+      })
     }
+  }
+
 
     return (
         <Dialog open={isOpen} onOpenChange={onClose}>

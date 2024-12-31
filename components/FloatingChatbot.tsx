@@ -9,9 +9,10 @@ import { ScrollArea } from "@/components/ui/scroll-area"
 import { cn } from "@/lib/utils"
 
 interface Message {
+  id: string;
   sender: 'You' | 'Bot' | 'Error';
   content: string;
-  isLoading?: boolean;
+  isComplete: boolean;
 }
 
 const Chatbot: React.FC = () => {
@@ -21,8 +22,37 @@ const Chatbot: React.FC = () => {
   const scrollAreaRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
+    // Add welcome message when the component mounts
+    setMessages([
+      {
+        id: '0',
+        sender: 'Bot',
+        content: "Hello! I'm your AI assistant. How can I help you today?",
+        isComplete: false
+      }
+    ])
+  }, [])
+
+  useEffect(() => {
     if (scrollAreaRef.current) {
       scrollAreaRef.current.scrollTop = scrollAreaRef.current.scrollHeight
+    }
+  }, [messages])
+
+  useEffect(() => {
+    const incompleteMessage = messages.find(msg => !msg.isComplete)
+    if (incompleteMessage) {
+      const timer = setTimeout(() => {
+        setMessages(prevMessages =>
+          prevMessages.map(msg =>
+            msg.id === incompleteMessage.id
+              ? { ...msg, isComplete: true }
+              : msg
+          )
+        )
+      }, 500 + incompleteMessage.content.length * 20) // Adjust timing based on message length
+
+      return () => clearTimeout(timer)
     }
   }, [messages])
 
@@ -31,12 +61,19 @@ const Chatbot: React.FC = () => {
 
     if (!input.trim()) return
 
-    setMessages((prevMessages) => [...prevMessages, { sender: 'You', content: input }])
+    const userMessageId = Date.now().toString()
+    setMessages(prevMessages => [
+      ...prevMessages,
+      { id: userMessageId, sender: 'You', content: input, isComplete: true }
+    ])
     setIsLoading(true)
     setInput('')
 
-    // Add a loading message
-    setMessages((prevMessages) => [...prevMessages, { sender: 'Bot', content: '', isLoading: true }])
+    const botMessageId = (Date.now() + 1).toString()
+    setMessages(prevMessages => [
+      ...prevMessages,
+      { id: botMessageId, sender: 'Bot', content: '', isComplete: false }
+    ])
 
     try {
       const response = await fetch('/api/chat', {
@@ -50,22 +87,31 @@ const Chatbot: React.FC = () => {
       const data = await response.json()
 
       if (response.ok) {
-        setMessages((prevMessages) => [
-          ...prevMessages.slice(0, -1),
-          { sender: 'Bot', content: data.reply }
-        ])
+        setMessages(prevMessages =>
+          prevMessages.map(msg =>
+            msg.id === botMessageId
+              ? { ...msg, content: data.reply }
+              : msg
+          )
+        )
       } else {
-        setMessages((prevMessages) => [
-          ...prevMessages.slice(0, -1),
-          { sender: 'Error', content: data.error || 'Something went wrong' }
-        ])
+        setMessages(prevMessages =>
+          prevMessages.map(msg =>
+            msg.id === botMessageId
+              ? { ...msg, sender: 'Error', content: data.error || 'Something went wrong' }
+              : msg
+          )
+        )
       }
     } catch (error) {
       console.error('Error:', error)
-      setMessages((prevMessages) => [
-        ...prevMessages.slice(0, -1),
-        { sender: 'Error', content: 'Could not connect to the bot' }
-      ])
+      setMessages(prevMessages =>
+        prevMessages.map(msg =>
+          msg.id === botMessageId
+            ? { ...msg, sender: 'Error', content: 'Could not connect to the bot' }
+            : msg
+        )
+      )
     } finally {
       setIsLoading(false)
     }
@@ -74,14 +120,14 @@ const Chatbot: React.FC = () => {
   return (
     <Card className="w-[350px] h-[500px] flex flex-col">
       <CardHeader className="pb-2">
-        <CardTitle className="text-lg font-semibold">Chat with our AI</CardTitle>
+        <CardTitle className="text-lg font-semibold">AI Assistant</CardTitle>
       </CardHeader>
       <CardContent className="flex-grow overflow-hidden p-0">
         <ScrollArea className="h-full px-4" ref={scrollAreaRef}>
           <div className="space-y-4 pt-4">
-            {messages.map((msg, index) => (
+            {messages.map((msg) => (
               <div
-                key={index}
+                key={msg.id}
                 className={cn(
                   "flex",
                   msg.sender === 'You' ? "justify-end" : "justify-start"
@@ -94,11 +140,12 @@ const Chatbot: React.FC = () => {
                   )}
                 >
                   <p className="font-semibold">{msg.sender}</p>
-                  {msg.isLoading ? (
-                    <p className="animate-pulse">Typing...</p>
-                  ) : (
-                    <p>{msg.content}</p>
-                  )}
+                  <p>
+                    {msg.isComplete ? msg.content : msg.content + '▋'}
+                    {!msg.isComplete && (
+                      <span className="animate-pulse">...</span>
+                    )}
+                  </p>
                 </div>
               </div>
             ))}
@@ -111,7 +158,7 @@ const Chatbot: React.FC = () => {
             type="text"
             value={input}
             onChange={(e: React.ChangeEvent<HTMLInputElement>) => setInput(e.target.value)}
-            placeholder="Type a message..."
+            placeholder="Type your message..."
             className="flex-grow"
           />
           <Button type="submit" size="icon" disabled={isLoading}>
@@ -125,16 +172,16 @@ const Chatbot: React.FC = () => {
 
 const FloatingChatbot: React.FC = () => {
   const [isOpen, setIsOpen] = useState<boolean>(false)
-  const [isAnimating, setIsAnimating] = useState<boolean>(false)
+  const [hasNewMessage, setHasNewMessage] = useState<boolean>(true)
 
   useEffect(() => {
-    const animationInterval = setInterval(() => {
-      setIsAnimating(true)
-      setTimeout(() => setIsAnimating(false), 1000)
-    }, 5000)
-
-    return () => clearInterval(animationInterval)
-  }, [])
+    if (!isOpen && hasNewMessage) {
+      const interval = setInterval(() => {
+        setHasNewMessage(prev => !prev)
+      }, 1000)
+      return () => clearInterval(interval)
+    }
+  }, [isOpen, hasNewMessage])
 
   return (
     <div className="fixed bottom-4 right-4 z-50">
@@ -144,15 +191,27 @@ const FloatingChatbot: React.FC = () => {
         </div>
       )}
       <Button
-        onClick={() => setIsOpen(!isOpen)}
+        onClick={() => {
+          setIsOpen(!isOpen)
+          setHasNewMessage(false)
+        }}
         size="icon"
         className={cn(
-          "w-12 h-12 rounded-full shadow-lg transition-transform duration-300",
-          isAnimating && !isOpen && "animate-bounce"
+          "w-12 h-12 rounded-full shadow-lg transition-all duration-300",
+          hasNewMessage && !isOpen && "animate-bounce"
         )}
         aria-label={isOpen ? "Close chat" : "Open chat"}
       >
-        {isOpen ? <X className="h-6 w-6" /> : <MessageCircle className="h-6 w-6" />}
+        {isOpen ? (
+          <X className="h-6 w-6" />
+        ) : (
+          <div className="relative">
+            <MessageCircle className="h-6 w-6" />
+            {hasNewMessage && (
+              <span className="absolute -top-1 -right-1 w-3 h-3 bg-red-500 rounded-full" />
+            )}
+          </div>
+        )}
       </Button>
     </div>
   )
