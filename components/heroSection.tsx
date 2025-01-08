@@ -253,59 +253,69 @@ export default function PortfolioPage() {
         </AnimatePresence>
 
         <main className="relative z-10">
-          <section ref={homeRef} id="home" className="relative flex items-center justify-center min-h-screen px-4 sm:px-6 lg:px-8">
-            <div className="absolute inset-0 z-0">
-              <Canvas camera={{ position: [0, 0, 5] }}>
-                <ambientLight intensity={0.5} />
-                <pointLight position={[10, 10, 10]} />
-                <InteractiveSphere />
-                <OrbitControls enableZoom={false} />
-              </Canvas>
-            </div>
-            <div className="text-center text-white relative z-10">
-              <motion.div
-                className="h-24 mb-4"
+        <section ref={homeRef} id="home" className="relative flex items-center justify-center min-h-screen px-4 sm:px-6 lg:px-8">
+      <div className="absolute inset-0 z-0">
+        <Canvas 
+          camera={{ position: [0, 0, 8], fov: 60 }}
+          className="w-full h-full"
+          style={{ background: 'transparent' }}
+        >
+          <ambientLight intensity={0.5} />
+          <pointLight position={[10, 10, 10]} intensity={1.5} />
+          <pointLight position={[-10, -10, -10]} intensity={0.5} />
+          <InteractiveSphere />
+          <OrbitControls 
+            enableZoom={false}
+            enablePan={false}
+            maxPolarAngle={Math.PI / 1.5}
+            minPolarAngle={Math.PI / 2.5}
+          />
+        </Canvas>
+      </div>
+      <div className="text-center text-white relative z-10">
+        <motion.div
+          className="h-24 mb-4"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8 }}
+        >
+          <AnimatePresence mode="wait">
+            {isVisible && (
+              <motion.h1
+                key={currentPhrase}
+                className="text-5xl md:text-6xl font-bold text-teal-400"
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.8 }}
+                exit={{ opacity: 0, y: -20 }}
+                transition={{ duration: 0.5 }}
               >
-                <AnimatePresence mode="wait">
-                  {isVisible && (
-                    <motion.h1
-                      key={currentPhrase}
-                      className="text-5xl md:text-6xl font-bold text-teal-400"
-                      initial={{ opacity: 0, y: 20 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      exit={{ opacity: 0, y: -20 }}
-                      transition={{ duration: 0.5 }}
-                    >
-                      {currentPhrase}
-                    </motion.h1>
-                  )}
-                </AnimatePresence>
-              </motion.div>
-              <motion.h2
-                className="text-2xl md:text-3xl mb-8 text-gray-300"
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.8, delay: 0.2 }}
-              >
-                Full-Stack Developer
-              </motion.h2>
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.8, delay: 0.6 }}
-              >
-                <Button
-                  className="bg-teal-500 hover:bg-teal-600 text-white font-bold py-2 px-4 rounded-full transition-all duration-200 transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-teal-400 focus:ring-opacity-50"
-                  onClick={() => setIsModalOpen(true)}
-                >
-                  Hire Me
-                </Button>
-              </motion.div>
-            </div>
-          </section>
+                {currentPhrase}
+              </motion.h1>
+            )}
+          </AnimatePresence>
+        </motion.div>
+        <motion.h2
+          className="text-2xl md:text-3xl mb-8 text-gray-300"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 0.2 }}
+        >
+          Full-Stack Developer
+        </motion.h2>
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 0.6 }}
+        >
+          <Button
+            className="bg-teal-500 hover:bg-teal-600 text-white font-bold py-2 px-4 rounded-full transition-all duration-200 transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-teal-400 focus:ring-opacity-50"
+            onClick={() => setIsModalOpen(true)}
+          >
+            Hire Me
+          </Button>
+        </motion.div>
+      </div>
+    </section>
 
           <section ref={aboutRef} id="about" className="py-20">
             <AboutSection />
