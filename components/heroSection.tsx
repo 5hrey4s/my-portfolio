@@ -18,7 +18,7 @@ const projects = [
     title: "Library Management App",
     description: "A scalable library management system utilizing modern technologies and best practices.",
     image: "/pexels-joshsorenson-990432.jpg",
-    tools: ["Next.js", "TypeScript", "Tailwind CSS", "PostgreSQL", "Vitest"],
+    tools: ["Next.js", "TypeScript", "Tailwind CSS", "PostgreSQL", "Vitest","Vercel","Cloudinary","shadcn "],
     link: "https://library-management-app-two.vercel.app/",
     sourceCode: "https://github.com/5hrey4s/Library-management-app",
     features: [

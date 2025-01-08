@@ -48,17 +48,25 @@ const tabContent: Record<string, TabContent> = {
       "React.js",
       "TypeScript",
       "JavaScript",
+      "Python",
+      "Ruby on Rails",
       "Tailwind CSS",
       "HTML5",
       "CSS3",
       "PostgreSQL",
       "Node.js",
       "Git",
+      "GitHub",
       "Vitest",
-      "TDD (Test-Driven Development)",
-      "API Testing (Postman)",
+      "TDD",
+      "API Testing",
       "RDBMS",
+      "AWS",
+      "Figma",
+      "CI/CD Pipelines",
+      "Webhooks",
     ],
+    
   },
   Experience: {
     title: "Professional Journey",
@@ -179,7 +187,7 @@ function renderContent(category: string) {
           </h3>
           <p className="text-gray-300 mb-6">{`${content.content}`}</p>
           <Button asChild className="bg-teal-500 hover:bg-teal-600 text-white">
-            <a href="/Shreyas_resume (3) (1).pdf" download>
+            <a href="/Shreyas_resume.pdf" download>
               Download CV <ChevronRight className="ml-2 h-4 w-4" />
             </a>
           </Button>
