@@ -1,16 +1,19 @@
 "use client"
 
-import { useState, useEffect, useRef, useMemo } from 'react'
+import { useState, useRef, useMemo } from 'react'
 import Image from 'next/image'
 import { motion, AnimatePresence } from 'framer-motion'
 import Link from 'next/link'
+import { Canvas } from '@react-three/fiber'
+import { OrbitControls } from '@react-three/drei'
 import { Button } from '@/components/ui/button'
 import { Menu, X, Linkedin, Mail, Github } from 'lucide-react'
 import AboutSection from './about'
 import ProjectCard from './ProjectCard'
 import ContactSection from './ContactSection'
-import HireMeModal from "./HireMeModal";
-
+import HireMeModal from "./HireMeModal"
+import InteractiveSphere from '../hooks/InteractiveSphere'
+import useRotatingText from './useRotatingText'
 
 const projects = [
   {
@@ -78,13 +81,12 @@ export default function PortfolioPage() {
   const [isScrolled, setIsScrolled] = useState(false)
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
   const [activeSection, setActiveSection] = useState('home')
+  const [isModalOpen, setIsModalOpen] = useState(false)
 
   const homeRef = useRef<HTMLElement>(null)
   const aboutRef = useRef<HTMLElement>(null)
   const projectsRef = useRef<HTMLElement>(null)
   const contactRef = useRef<HTMLElement>(null)
-  const [isModalOpen, setIsModalOpen] = useState(false);
-
 
   const navItems = useMemo(() => [
     { name: 'Home', ref: homeRef },
@@ -93,40 +95,25 @@ export default function PortfolioPage() {
     { name: 'Contact', ref: contactRef }
   ], [homeRef, aboutRef, projectsRef, contactRef])
 
-  useEffect(() => {
-    const handleScroll = () => {
-      setIsScrolled(window.scrollY > 10)
-
-      const currentSection = navItems.find(item => {
-        if (item.ref.current) {
-          const rect = item.ref.current.getBoundingClientRect()
-          return rect.top <= 100 && rect.bottom > 100
-        }
-        return false
-      })
-
-      if (currentSection) {
-        setActiveSection(currentSection.name.toLowerCase())
-      }
-    }
-
-    window.addEventListener('scroll', handleScroll)
-    return () => window.removeEventListener('scroll', handleScroll)
-  }, [navItems])
+  const phrases = [
+    "Hi, I'm Shreyas Salyan",
+    "I'm a Full-Stack Developer",
+    "I create seamless digital experiences",
+    "Let's build something amazing together"
+  ]
+  const { currentPhrase, isVisible } = useRotatingText(phrases, 3000)
 
   const scrollToSection = (ref: React.RefObject<HTMLElement>) => {
     if (ref.current) {
-      const yOffset = -80 // Adjust this value based on your header height
+      const yOffset = -80
       const y = ref.current.getBoundingClientRect().top + window.pageYOffset + yOffset
       window.scrollTo({ top: y, behavior: 'smooth' })
     }
     setIsMobileMenuOpen(false)
   }
 
-
   return (
     <div className="relative min-h-screen overflow-hidden">
-
       <div className="fixed inset-0 z-0">
         <div className="relative w-full h-full">
           <Image
@@ -134,15 +121,14 @@ export default function PortfolioPage() {
             alt="Background"
             fill
             quality={100}
-            className="opacity-50 object-cover" // Use 'object-cover' for CSS object-fit
+            className="opacity-30 object-cover"
           />
         </div>
         <div className="absolute inset-0 bg-gradient-to-br from-gray-900 to-gray-800 opacity-90 backdrop-blur-xl"></div>
       </div>
 
-
       <div className="relative z-10">
-        <header className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${isScrolled ? 'bg-gray-900/80 backdrop-blur-sm shadow-lg' : 'bg-transparent'}`}>
+      <header className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${isScrolled ? 'bg-gray-900/80 backdrop-blur-sm shadow-lg' : 'bg-transparent'}`}>
           <div className="container mx-auto px-4 sm:px-6 lg:px-8">
             <div className="flex items-center justify-between h-16 sm:h-20">
               <motion.div
@@ -255,15 +241,36 @@ export default function PortfolioPage() {
 
         <main className="relative z-10">
           <section ref={homeRef} id="home" className="flex items-center justify-center min-h-screen px-4 sm:px-6 lg:px-8">
-            <div className="text-center text-white">
-              <motion.h1
-                className="text-5xl md:text-6xl font-bold mb-4 text-teal-400"
+            <div className="absolute inset-0 z-0">
+              <Canvas camera={{ position: [0, 0, 5] }}>
+                <ambientLight intensity={0.5} />
+                <pointLight position={[10, 10, 10]} />
+                <InteractiveSphere />
+                <OrbitControls enableZoom={false} />
+              </Canvas>
+            </div>
+            <div className="text-center text-white relative z-10">
+              <motion.div
+                className="h-24 mb-4"
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.8 }}
               >
-                Hi, I&apos;m Shreyas Salyan
-              </motion.h1>
+                <AnimatePresence mode="wait">
+                  {isVisible && (
+                    <motion.h1
+                      key={currentPhrase}
+                      className="text-5xl md:text-6xl font-bold text-teal-400"
+                      initial={{ opacity: 0, y: 20 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      exit={{ opacity: 0, y: -20 }}
+                      transition={{ duration: 0.5 }}
+                    >
+                      {currentPhrase}
+                    </motion.h1>
+                  )}
+                </AnimatePresence>
+              </motion.div>
               <motion.h2
                 className="text-2xl md:text-3xl mb-8 text-gray-300"
                 initial={{ opacity: 0, y: 20 }}
@@ -272,25 +279,14 @@ export default function PortfolioPage() {
               >
                 Full-Stack Developer
               </motion.h2>
-              <motion.p
-                className="text-xl md:text-2xl mb-12 text-gray-400"
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.8, delay: 0.4 }}
-              >
-                Creating seamless digital experiences
-              </motion.p>
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.8, delay: 0.6 }}
               >
-                
-               <Button
+                <Button
                   className="bg-teal-500 hover:bg-teal-600 text-white font-bold py-2 px-4 rounded-full transition-all duration-200 transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-teal-400 focus:ring-opacity-50"
-                  onClick={() => 
-                    setIsModalOpen(true)
-                  }
+                  onClick={() => setIsModalOpen(true)}
                 >
                   Hire Me
                 </Button>
@@ -358,3 +354,4 @@ export default function PortfolioPage() {
     </div>
   )
 }
+
