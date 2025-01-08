@@ -43,7 +43,7 @@ const projects = [
         description: "A responsive React-based web application designed for bill splitting.",
         image: "/pexels-ishahidsultan-6595970.jpg",
         tools: ["React", "Tailwind CSS", "Figma", "Storybook"],
-        link: "https://splitter-app.vercel.app/",
+        link: "https://splitsmart.netlify.app/",
         sourceCode: "https://github.com/5hrey4s/bill-splitter-app",
         features: [
             "Calculate and display total bill per person",
