@@ -1,6 +1,6 @@
 "use client"
 
-import { useState, useRef, useMemo } from 'react'
+import { useState, useRef, useMemo, useEffect } from 'react'
 import Image from 'next/image'
 import { motion, AnimatePresence } from 'framer-motion'
 import Link from 'next/link'
@@ -103,6 +103,27 @@ export default function PortfolioPage() {
   ]
   const { currentPhrase, isVisible } = useRotatingText(phrases, 3000)
 
+  useEffect(() => {
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 10)
+
+      const currentSection = navItems.find(item => {
+        if (item.ref.current) {
+          const rect = item.ref.current.getBoundingClientRect()
+          return rect.top <= 100 && rect.bottom > 100
+        }
+        return false
+      })
+
+      if (currentSection) {
+        setActiveSection(currentSection.name.toLowerCase())
+      }
+    }
+
+    window.addEventListener('scroll', handleScroll)
+    return () => window.removeEventListener('scroll', handleScroll)
+  }, [navItems])
+
   const scrollToSection = (ref: React.RefObject<HTMLElement>) => {
     if (ref.current) {
       const yOffset = -80
@@ -128,7 +149,7 @@ export default function PortfolioPage() {
       </div>
 
       <div className="relative z-10">
-      <header className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${isScrolled ? 'bg-gray-900/80 backdrop-blur-sm shadow-lg' : 'bg-transparent'}`}>
+        <header className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${isScrolled ? 'bg-gray-900/80 backdrop-blur-sm shadow-lg' : 'bg-transparent'}`}>
           <div className="container mx-auto px-4 sm:px-6 lg:px-8">
             <div className="flex items-center justify-between h-16 sm:h-20">
               <motion.div
@@ -140,7 +161,6 @@ export default function PortfolioPage() {
                 <Link href="/" className="text-2xl font-serif font-bold tracking-tight text-teal-400 hover:text-teal-300 transition-colors duration-200">
                   SS
                 </Link>
-
               </motion.div>
 
               <nav className="hidden md:flex space-x-4">
@@ -168,14 +188,10 @@ export default function PortfolioPage() {
               >
                 <Button
                   className="bg-teal-500 hover:bg-teal-600 text-white font-bold py-2 px-4 rounded-full transition-all duration-200 transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-teal-400 focus:ring-opacity-50"
-                  onClick={() => 
-                    setIsModalOpen(true)
-                  }
+                  onClick={() => setIsModalOpen(true)}
                 >
                   Hire Me
                 </Button>
-                <HireMeModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />
-
               </motion.div>
               <div className="md:hidden">
                 <Button
@@ -224,15 +240,12 @@ export default function PortfolioPage() {
                   exit={{ opacity: 0, y: 20 }}
                   transition={{ duration: 0.3, delay: navItems.length * 0.1 }}
                 >
-                <Button
-                  className="bg-teal-500 hover:bg-teal-600 text-white font-bold py-2 px-4 rounded-full transition-all duration-200 transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-teal-400 focus:ring-opacity-50"
-                  onClick={() => 
-                    setIsModalOpen(true)
-                  }
-                >
-                  Hire Me
-                </Button>
-                <HireMeModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />
+                  <Button
+                    className="bg-teal-500 hover:bg-teal-600 text-white font-bold py-2 px-4 rounded-full transition-all duration-200 transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-teal-400 focus:ring-opacity-50"
+                    onClick={() => setIsModalOpen(true)}
+                  >
+                    Hire Me
+                  </Button>
                 </motion.div>
               </div>
             </motion.div>
@@ -240,7 +253,7 @@ export default function PortfolioPage() {
         </AnimatePresence>
 
         <main className="relative z-10">
-          <section ref={homeRef} id="home" className="flex items-center justify-center min-h-screen px-4 sm:px-6 lg:px-8">
+          <section ref={homeRef} id="home" className="relative flex items-center justify-center min-h-screen px-4 sm:px-6 lg:px-8">
             <div className="absolute inset-0 z-0">
               <Canvas camera={{ position: [0, 0, 5] }}>
                 <ambientLight intensity={0.5} />
@@ -290,7 +303,6 @@ export default function PortfolioPage() {
                 >
                   Hire Me
                 </Button>
-                <HireMeModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />
               </motion.div>
             </div>
           </section>
@@ -351,6 +363,7 @@ export default function PortfolioPage() {
           </div>
         </footer>
       </div>
+      <HireMeModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />
     </div>
   )
 }
