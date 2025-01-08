@@ -13,7 +13,7 @@ const projects = [
         description: "A scalable library management system utilizing modern technologies and best practices.",
         image: "/pexels-joshsorenson-990432.jpg",
         tools: ["Next.js", "TypeScript", "Tailwind CSS", "PostgreSQL", "Vitest"],
-        link: "https://library-management-app-six.vercel.app/",
+        link: "https://library-management-app-two.vercel.app/",
         sourceCode: "https://github.com/5hrey4s/Library-management-app",
         features: [
             "Role-based access control for administrators",
@@ -76,7 +76,7 @@ const projects = [
 //         description: "A full-stack library management system using React.js, Next.js, and TypeScript.",
 //         image: "/pexels-joshsorenson-990432.jpg",
 //         tools: ["React.js", "Next.js", "TypeScript"],
-//         link: "https://library-management-app-six.vercel.app/",
+//         link: "",
 //         sourceCode: "https://github.com/5hrey4s/Library-management-app  "
 //     },
 //     {
