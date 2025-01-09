@@ -22,6 +22,7 @@
     "@radix-ui/react-toast": "^1.2.4",
     "@react-three/drei": "^9.120.5",
     "@react-three/fiber": "^8.17.10",
+    "@react-three/postprocessing": "^2.16.6",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.1",
     "dialogflow": "^1.2.0",

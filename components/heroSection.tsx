@@ -12,8 +12,8 @@ import AboutSection from './about'
 import ProjectCard from './ProjectCard'
 import ContactSection from './ContactSection'
 import HireMeModal from "./HireMeModal"
+import FlowingParticles from '../components/FlowingParticles'
 import useRotatingText from './useRotatingText'
-import FlowingParticles from '../hooks/FlowingParticles'
 
 const projects = [
   {
@@ -142,7 +142,7 @@ export default function PortfolioPage() {
             alt="Background"
             fill
             quality={100}
-            className="opacity-30 object-cover"
+            className="opacity-20 object-cover"
           />
         </div>
         <div className="absolute inset-0 bg-gradient-to-br from-gray-900 to-gray-800 opacity-90 backdrop-blur-xl"></div>
@@ -253,7 +253,7 @@ export default function PortfolioPage() {
         </AnimatePresence>
 
         <main className="relative z-10">
-        <section ref={homeRef} id="home" className="relative flex items-center justify-center min-h-screen px-4 sm:px-6 lg:px-8">
+          <section ref={homeRef} id="home" className="relative flex items-center justify-center min-h-screen px-4 sm:px-6 lg:px-8">
             <div className="absolute inset-0 z-0">
               <Canvas 
                 camera={{ position: [0, 0, 10], fov: 60 }}
