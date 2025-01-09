@@ -1,19 +1,17 @@
 "use client"
 
-import { useState, useRef, useMemo, useEffect } from 'react'
-import Image from 'next/image'
+import React, { useState, useRef, useMemo, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import Link from 'next/link'
-import { Canvas } from '@react-three/fiber'
-import { OrbitControls } from '@react-three/drei'
 import { Button } from '@/components/ui/button'
 import { Menu, X, Linkedin, Mail, Github } from 'lucide-react'
 import AboutSection from './about'
 import ProjectCard from './ProjectCard'
 import ContactSection from './ContactSection'
 import HireMeModal from "./HireMeModal"
-import FlowingParticles from '../hooks/FlowingParticles'
+import { CosmicScene } from '../components/CosmicScene'
 import useRotatingText from './useRotatingText'
+
 
 const projects = [
   {
@@ -136,16 +134,7 @@ export default function PortfolioPage() {
   return (
     <div className="relative min-h-screen overflow-hidden">
       <div className="fixed inset-0 z-0">
-        <div className="relative w-full h-full">
-          <Image
-            src="/jeremy-bishop-G9i_plbfDgk-unsplash.jpg"
-            alt="Background"
-            fill
-            quality={100}
-            className="opacity-20 object-cover"
-          />
-        </div>
-        <div className="absolute inset-0 bg-gradient-to-br from-gray-900 to-gray-800 opacity-90 backdrop-blur-xl"></div>
+        <CosmicScene />
       </div>
 
       <div className="relative z-10">
@@ -164,7 +153,7 @@ export default function PortfolioPage() {
               </motion.div>
 
               <nav className="hidden md:flex space-x-4">
-                {navItems.map((item, index) => (
+                {(navItems.map((item, index) =>
                   <motion.div
                     key={item.name}
                     initial={{ opacity: 0, y: -20 }}
@@ -254,22 +243,6 @@ export default function PortfolioPage() {
 
         <main className="relative z-10">
           <section ref={homeRef} id="home" className="relative flex items-center justify-center min-h-screen px-4 sm:px-6 lg:px-8">
-            <div className="absolute inset-0 z-0">
-              <Canvas 
-                camera={{ position: [0, 0, 10], fov: 60 }}
-                className="w-full h-full"
-                style={{ background: 'transparent' }}
-              >
-                <ambientLight intensity={0.5} />
-                <pointLight position={[10, 10, 10]} intensity={0.8} />
-                <FlowingParticles />
-                <OrbitControls 
-                  enableZoom={false}
-                  enablePan={false}
-                  enableRotate={false}
-                />
-              </Canvas>
-            </div>
             <div className="text-center text-white relative z-10">
               <motion.div
                 className="h-24 mb-4"
