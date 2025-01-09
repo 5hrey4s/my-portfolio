@@ -254,24 +254,30 @@ export default function PortfolioPage() {
 
         <main className="relative z-10">
         <section ref={homeRef} id="home" className="relative flex items-center justify-center min-h-screen px-4 sm:px-6 lg:px-8">
-      <div className="absolute inset-0 z-0">
-        <Canvas 
-          camera={{ position: [0, 0, 8], fov: 60 }}
-          className="w-full h-full"
-          style={{ background: 'transparent' }}
-        >
-          <ambientLight intensity={0.5} />
-          <pointLight position={[10, 10, 10]} intensity={1.5} />
-          <pointLight position={[-10, -10, -10]} intensity={0.5} />
-          <InteractiveSphere />
-          <OrbitControls 
-            enableZoom={false}
-            enablePan={false}
-            maxPolarAngle={Math.PI / 1.5}
-            minPolarAngle={Math.PI / 2.5}
-          />
-        </Canvas>
-      </div>
+        <div className="absolute inset-0 z-0">
+  <Canvas 
+    camera={{ position: [0, 0, 8], fov: 60 }}
+    className="w-full h-full"
+    style={{ background: 'transparent' }}
+    gl={{ antialias: true }}
+  >
+    <ambientLight intensity={0.3} />
+    <pointLight position={[10, 10, 10]} intensity={1.5} color="#0ea5e9" />
+    <pointLight position={[-10, -10, -10]} intensity={0.5} color="#0ea5e9" />
+    <fog attach="fog" args={['#000', 8, 25]} />
+    <InteractiveSphere />
+    <OrbitControls 
+      enableZoom={false}
+      enablePan={false}
+      maxPolarAngle={Math.PI / 1.5}
+      minPolarAngle={Math.PI / 2.5}
+      autoRotate
+      autoRotateSpeed={0.5}
+    />
+  </Canvas>
+</div>
+
+
       <div className="text-center text-white relative z-10">
         <motion.div
           className="h-24 mb-4"
