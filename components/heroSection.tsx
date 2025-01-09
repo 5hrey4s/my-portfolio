@@ -12,7 +12,7 @@ import AboutSection from './about'
 import ProjectCard from './ProjectCard'
 import ContactSection from './ContactSection'
 import HireMeModal from "./HireMeModal"
-import FlowingParticles from '../components/FlowingParticles'
+import FlowingParticles from '../hooks/FlowingParticles'
 import useRotatingText from './useRotatingText'
 
 const projects = [
