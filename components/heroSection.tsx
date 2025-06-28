@@ -234,7 +234,7 @@ export default function PortfolioPage() {
                     onClick={() => setIsModalOpen(true)}
                   >
                     Hire Me
-                  </Button>
+                  </Button> 
                 </motion.div>
               </div>
             </motion.div>
