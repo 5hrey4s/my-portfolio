@@ -243,50 +243,53 @@ export default function PortfolioPage() {
 
         <main className="relative z-10">
           <section ref={homeRef} id="home" className="relative flex items-center justify-center min-h-screen px-4 sm:px-6 lg:px-8">
-            <div className="text-center text-white relative z-10">
-              <motion.div
-                className="h-24 mb-4"
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.8 }}
-              >
-                <AnimatePresence mode="wait">
-                  {isVisible && (
-                    <motion.h1
-                      key={currentPhrase}
-                      className="text-5xl md:text-6xl font-bold text-teal-400"
-                      initial={{ opacity: 0, y: 20 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      exit={{ opacity: 0, y: -20 }}
-                      transition={{ duration: 0.5 }}
-                    >
-                      {currentPhrase}
-                    </motion.h1>
-                  )}
-                </AnimatePresence>
-              </motion.div>
-              <motion.h2
-                className="text-2xl md:text-3xl mb-8 text-gray-300"
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.8, delay: 0.2 }}
-              >
-                Full-Stack Developer
-              </motion.h2>
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.8, delay: 0.6 }}
-              >
-                <Button
-                  className="bg-teal-500 hover:bg-teal-600 text-white font-bold py-2 px-4 rounded-full transition-all duration-200 transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-teal-400 focus:ring-opacity-50"
-                  onClick={() => setIsModalOpen(true)}
-                >
-                  Hire Me
-                </Button>
-              </motion.div>
-            </div>
-          </section>
+  <div className="text-center text-white relative z-10">
+    {/* Remove the fixed height container and rely on spacing */}
+    <motion.div
+      className="mb-4" // Keep the bottom margin for spacing
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.8 }}
+    >
+      <AnimatePresence mode="wait">
+        {isVisible && (
+          <motion.h1
+            key={currentPhrase}
+            // Use larger text sizes for mobile to improve readability
+            className="text-4xl sm:text-5xl md:text-6xl font-bold text-teal-400"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -20 }}
+            transition={{ duration: 0.5 }}
+          >
+            {currentPhrase}
+          </motion.h1>
+        )} 
+      </AnimatePresence>
+    </motion.div>
+    <motion.h2
+      // Increase the bottom margin for more space on mobile
+      className="text-xl sm:text-2xl md:text-3xl mb-12 sm:mb-8 text-gray-300"
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.8, delay: 0.2 }}
+    >
+      Full-Stack Developer
+    </motion.h2>
+    <motion.div
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.8, delay: 0.6 }}
+    >
+      <Button
+        className="bg-teal-500 hover:bg-teal-600 text-white font-bold py-2 px-4 rounded-full transition-all duration-200 transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-teal-400 focus:ring-opacity-50"
+        onClick={() => setIsModalOpen(true)}
+      >
+        Hire Me
+      </Button>
+    </motion.div>
+  </div>
+</section>
 
           <section ref={aboutRef} id="about" className="py-20">
             <AboutSection />

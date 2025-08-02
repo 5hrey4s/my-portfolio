@@ -69,26 +69,7 @@ const projects = [
 ];
 
 
-// export const projects = [
-//     {
-//         id: 1,
-//         title: "Library Management System",
-//         description: "A full-stack library management system using React.js, Next.js, and TypeScript.",
-//         image: "/pexels-joshsorenson-990432.jpg",
-//         tools: ["React.js", "Next.js", "TypeScript"],
-//         link: "",
-//         sourceCode: "https://github.com/5hrey4s/Library-management-app  "
-//     },
-//     {
-//         id: 2,
-//         title: "Bill Splitter App",
-//         description: "A React-based application for splitting bills, enhancing frontend development skills.",
-//         image: "/pexels-ishahidsultan-6595970.jpg",
-//         tools: ["React", "Tailwind CSS", "Figma"],
-//         link: "https://splitsmart.netlify.app/",
-//         sourceCode: "https://github.com/5hrey4s/Bill-Splitter-App"
-//     }
-// ]
+
 
 export default function HorizontalGallery() {
     const [currentProject, setCurrentProject] = useState(0)
