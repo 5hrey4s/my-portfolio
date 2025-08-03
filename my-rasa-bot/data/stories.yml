@@ -1,0 +1,62 @@
+version: "3.1"
+
+stories:
+- story: user asks about summary
+  steps:
+  - intent: ask_summary
+  - action: utter_ask_summary
+
+- story: user asks about education
+  steps:
+  - intent: ask_education
+  - action: utter_ask_education
+
+- story: user asks about experience
+  steps:
+  - intent: ask_experience
+  - action: utter_ask_experience
+  
+- story: user asks about CodeCraft experience
+  steps:
+  - intent: ask_specific_experience_codecraft
+  - action: utter_ask_specific_experience_codecraft
+
+- story: user asks about Winman experience
+  steps:
+  - intent: ask_specific_experience_winman
+  - action: utter_ask_specific_experience_winman
+
+- story: user asks about projects
+  steps:
+  - intent: ask_projects
+  - action: utter_ask_projects
+
+- story: user asks about library project
+  steps:
+  - intent: ask_specific_project_library
+  - action: utter_ask_specific_project_library
+  
+- story: user asks about splitter project
+  steps:
+  - intent: ask_specific_project_splitter
+  - action: utter_ask_specific_project_splitter
+
+- story: user asks about skills
+  steps:
+  - intent: ask_skills
+  - action: utter_ask_skills
+
+- story: user asks for contact info
+  steps:
+  - intent: ask_contact
+  - action: utter_ask_contact
+
+- story: user asks for links
+  steps:
+  - intent: ask_links
+  - action: utter_ask_links
+
+- story: user asks about certifications
+  steps:
+  - intent: ask_certifications
+  - action: utter_ask_certifications

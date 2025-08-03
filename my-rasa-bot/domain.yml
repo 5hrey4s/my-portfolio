@@ -1,0 +1,66 @@
+version: "3.1"
+
+intents:
+  - greet
+  - goodbye
+  - affirm
+  - deny
+  - bot_challenge
+  - ask_summary
+  - ask_education
+  - ask_experience
+  - ask_specific_experience_codecraft
+  - ask_specific_experience_winman
+  - ask_projects
+  - ask_specific_project_library
+  - ask_specific_project_splitter
+  - ask_skills
+  - ask_contact
+  - ask_links
+  - ask_certifications
+
+responses:
+  utter_greet:
+  - text: "Hey! I'm an AI assistant for Shreyas's portfolio. You can ask me about his skills, projects, and experience. How can I help?"
+
+  utter_goodbye:
+  - text: "Goodbye! Have a great day."
+
+  utter_iamabot:
+  - text: "I am a bot, powered by Rasa, speaking on behalf of Shreyas."
+
+  utter_ask_summary:
+  - text: "I am an aspiring full-stack developer specializing in React.js, Next.js, Node.js, and PostgreSQL. I love building dynamic, scalable applications by combining engaging frontend interfaces with robust backend logic."
+
+  utter_ask_education:
+  - text: "I have a B.E in Artificial Intelligence and Machine Learning from Alvas Institute of Engineering and Technology, Moodbidri (2020-2024), with a CGPA of 7.25."
+
+  utter_ask_experience:
+  - text: "I was a Full Stack Development Intern at CodeCraft Technologies and I am scheduled to be a Trainee Software Engineer at Winman Software in Mangalore."
+
+  utter_ask_specific_experience_codecraft:
+  - text: "During my internship at CodeCraft Technologies, I developed and maintained full-stack web applications using React.js, Node.js, and PostgreSQL. I also built responsive UI components, integrated RESTful APIs, and participated in UI/UX design using Figma."
+
+  utter_ask_specific_experience_winman:
+  - text: "As a Trainee Software Engineer at Winman Software, my responsibilities will include contributing to internal enterprise applications and handling backend logic using SQL Server Management Studio (SSMS) with custom formula syntax."
+
+  utter_ask_projects:
+  - text: "I've built two notable projects: a full-stack Next.js Library Management System and a React-based bill-splitting application called Splitter App. Would you like to know more about a specific one?"
+
+  utter_ask_specific_project_library:
+  - text: "My Library Management System was built with Next.js, TypeScript, Postgres, and TailwindCSS, and hosted on Vercel with a database on AWS RDS. Key features include user authentication, role-based access, multi-language support, and an admin dashboard for managing book requests and inventory."
+
+  utter_ask_specific_project_splitter:
+  - text: "The Splitter App is a responsive React application I designed for bill splitting. The UI was designed in Figma and the components were tested using Storybook."
+
+  utter_ask_skills:
+  - text: "I'm proficient in languages like TypeScript, JavaScript, and Python. For web development, I use Next.js, Node.js, React, and Tailwind CSS. I manage databases with PostgreSQL and MySQL and use tools like Git, GitHub, and Postman."
+
+  utter_ask_contact:
+  - text: "You can reach me via email at shreyassalyan917@gmail.com or by phone at +91-8951229310."
+
+  utter_ask_links:
+  - text: "You can find my work on my GitHub and connect with me on my LinkedIn Profile."
+
+  utter_ask_certifications:
+  - text: "I hold certifications in JavaScript Algorithms and Data Structures and Responsive Web Design from Free Code Camp. I also have an internship certificate for Full Stack Development from CodeCraft Technologies."

@@ -1,0 +1,110 @@
+version: "3.1"
+
+nlu:
+- intent: greet
+  examples: |
+    - hey
+    - hello
+    - hi
+    - good morning
+    - good evening
+    - hey there
+
+- intent: goodbye
+  examples: |
+    - bye
+    - goodbye
+    - see you later
+    - good night
+
+- intent: affirm
+  examples: |
+    - yes
+    - indeed
+    - of course
+    - correct
+
+- intent: deny
+  examples: |
+    - no
+    - never
+    - not really
+
+- intent: bot_challenge
+  examples: |
+    - are you a bot?
+    - are you a human?
+    - am I talking to a bot?
+
+- intent: ask_summary
+  examples: |
+    - tell me about yourself
+    - what is your professional summary?
+    - give me a summary of your skills
+    - who are you?
+
+- intent: ask_education
+  examples: |
+    - what is your education?
+    - where did you study?
+    - what degree do you have?
+    - tell me about your college
+
+- intent: ask_experience
+  examples: |
+    - what is your work experience?
+    - where have you worked?
+    - tell me about your internships
+
+- intent: ask_specific_experience_codecraft
+  examples: |
+    - what did you do at CodeCraft?
+    - tell me about your internship at CodeCraft Technologies
+    - what was your role as a Full Stack Development Intern?
+
+- intent: ask_specific_experience_winman
+  examples: |
+    - what is your role at Winman Software?
+    - tell me about your job at Winman
+    - what do you do as a Trainee Software Engineer?
+
+- intent: ask_projects
+  examples: |
+    - what projects have you worked on?
+    - show me your work
+    - can you list your projects?
+
+- intent: ask_specific_project_library
+  examples: |
+    - tell me more about the library management system
+    - what tech did you use for the library project?
+    - what are the features of the library system?
+
+- intent: ask_specific_project_splitter
+  examples: |
+    - tell me about the splitter app
+    - what was the bill splitting project?
+
+- intent: ask_skills
+  examples: |
+    - what are your skills?
+    - what technologies do you know?
+    - what is your tech stack?
+
+- intent: ask_contact
+  examples: |
+    - how can I contact you?
+    - what is your email?
+    - what is your phone number?
+
+- intent: ask_links
+  examples: |
+    - what is your github link?
+    - can I have your linkedin profile?
+    - where is your portfolio?
+
+- intent: ask_certifications
+  examples: |
+    - what certifications do you have?
+    - are you certified?
+    - tell me about your certificates
