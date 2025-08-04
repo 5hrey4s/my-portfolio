@@ -22,5 +22,7 @@ USER 1001
 # Now, as the file owner, train the Rasa model.
 RUN rasa train --force
 
-# This is the final command that runs when the server starts.
-CMD ["run", "-p", "5005", "--enable-api", "--cors", "*"]
+# --- FIX: Use the PORT environment variable provided by Render ---
+# The ${PORT:-5005} syntax tells Rasa to use Render's PORT variable,
+# but defaults to 5005 if it's not set (e.g., when running locally).
+CMD rasa run -p ${PORT:-5005} --enable-api --cors "*"
