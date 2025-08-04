@@ -1,36 +1,29 @@
-# Start from the official Rasa SDK image.
-# This image contains all the necessary dependencies for running Rasa.
-FROM rasa/rasa-sdk:3.6.14
+# --- FIX: Use the correct base image for the full Rasa server ---
+FROM rasa/rasa:3.6.14-full
 
-# Set the working directory inside the container.
-# All subsequent commands will run from this path.
+# Set the working directory inside the server to /app.
 WORKDIR /app
 
-# Copy over the essential files from your local machine to the container.
-# This includes your training data, domain file, and configuration.
+# Copy your local Rasa files into the server's /app directory.
 COPY ./data /app/data
 COPY ./actions /app/actions
 COPY config.yml domain.yml credentials.yml endpoints.yml /app/
 
-# Set the user to root to have the necessary permissions for installation.
+# Temporarily switch to the root user to install dependencies.
 USER root
 
-# Install any Python dependencies you have for your custom actions.
-# It looks for a requirements.txt file inside your 'actions' folder.
-# If you don't have any custom dependencies, this line won't do anything, which is fine.
+# If you have any custom Python packages for your actions, this will install them.
+# It looks for a requirements.txt file in your 'actions' folder.
 RUN if [ -f /app/actions/requirements.txt ]; then \
       pip install -r /app/actions/requirements.txt; \
     fi
 
-# Switch back to a non-root user for better security.
+# Switch back to a standard user for security.
 USER 1001
 
-# Train the Rasa model when the Docker image is built.
-# This ensures your chatbot is ready to go as soon as it's deployed.
-# The '--force' flag ensures it retrains even if a model already exists.
+# This is a key step: It trains your Rasa model when the server is being built.
 RUN rasa train --force
 
-# Set the default command to run when the container starts.
-# This command starts the Rasa server and exposes it on port 5005,
-# allowing your frontend to communicate with it.
+# This is the final command that runs when the server starts.
+# It starts your Rasa chatbot and makes it available to the internet.
 CMD ["run", "-p", "5005", "--enable-api", "--cors", "*"]
