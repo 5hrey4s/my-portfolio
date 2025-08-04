@@ -17,7 +17,7 @@ interface Message {
   content: string;
 }
 
-// --- MODIFICATION: Added 'setIsOpen' prop to allow closing from within the UI ---
+// --- This prop allows the close button on mobile to work ---
 interface ChatbotUIProps {
   setIsOpen: (isOpen: boolean) => void;
 }
@@ -35,7 +35,7 @@ const ChatbotUI: React.FC<ChatbotUIProps> = ({ setIsOpen }) => {
       {
         id: 'welcome-0',
         sender: 'bot',
-        content: "Hey! I'm Shreyas's AI assistant. Ask me anything about his skills, projects, or experience.",
+        content: "Hello! I'm your AI assistant. How can I help you today?",
       }
     ])
   }, [])
@@ -53,34 +53,37 @@ const ChatbotUI: React.FC<ChatbotUIProps> = ({ setIsOpen }) => {
 
     const userMessage: Message = { id: uuidv4(), sender: 'user', content: input }
     setMessages(prevMessages => [...prevMessages, userMessage])
+    const currentInput = input;
     setInput('')
     setIsLoading(true)
 
     try {
-      const response = await fetch(process.env.NEXT_PUBLIC_RASA_URL!, {
+      // This fetch points to a Next.js API route. You would need to create this route
+      // to handle the logic for communicating with Dialogflow or another service.
+      const response = await fetch('/api/chat', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ sender: "user", message: input }),
+        body: JSON.stringify({ message: currentInput }),
       })
 
-      const rasaResponse = await response.json()
+      const data = await response.json()
 
-      if (response.ok && rasaResponse && rasaResponse.length > 0) {
-        const botMessages: Message[] = rasaResponse.map((msg: { text: string }) => ({
-          id: uuidv4(),
-          sender: 'bot',
-          content: msg.text
-        }))
-        setMessages(prevMessages => [...prevMessages, ...botMessages])
+      if (response.ok) {
+        const botMessage: Message = {
+            id: uuidv4(),
+            sender: 'bot',
+            content: data.reply
+        };
+        setMessages(prevMessages => [...prevMessages, botMessage])
       } else {
-        const errorContent = rasaResponse.error || 'Something went wrong on the server.'
+        const errorContent = data.error || 'Something went wrong.'
         setMessages(prevMessages => [...prevMessages, { id: uuidv4(), sender: 'error', content: errorContent }])
       }
     } catch (error) {
-      console.error('Error connecting to Rasa:', error)
+      console.error('Error connecting to API route:', error)
       setMessages(prevMessages => [
-        ...prevMessages,
-        { id: uuidv4(), sender: 'error', content: 'Could not connect to the bot. Is the Rasa server running?' }
+        ...prevMessages, 
+        { id: uuidv4(), sender: 'error', content: 'Could not connect to the bot.' }
       ])
     } finally {
       setIsLoading(false)
@@ -91,7 +94,7 @@ const ChatbotUI: React.FC<ChatbotUIProps> = ({ setIsOpen }) => {
     <Card className="w-full h-full flex flex-col bg-slate-900/80 from-slate-900 to-slate-800/90 backdrop-blur-lg border border-cyan-500/20 text-white shadow-2xl rounded-2xl">
       <CardHeader className="flex flex-row items-center justify-between p-4 border-b border-cyan-500/20">
         <CardTitle className="text-lg font-bold text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-teal-300">AI Assistant</CardTitle>
-        {/* --- MODIFICATION: This close button is ONLY visible on mobile screens --- */}
+        {/* This close button is ONLY visible on mobile screens */}
         <Button
           variant="ghost"
           size="icon"
@@ -140,6 +143,7 @@ const ChatbotUI: React.FC<ChatbotUIProps> = ({ setIsOpen }) => {
         </ScrollArea>
       </CardContent>
       <CardFooter className="p-4 border-t border-cyan-500/20">
+        {/* --- ALIGNMENT FIX IS HERE --- */}
         <form onSubmit={handleMessageSubmit} className="flex w-full items-center space-x-3">
           <Input
             type="text"
@@ -164,6 +168,7 @@ const FloatingChatbot: React.FC = () => {
   const [isOpen, setIsOpen] = useState<boolean>(false)
   const chatRef = useRef<HTMLDivElement>(null)
 
+  // This effect handles clicks outside of the chatbot window to close it
   useEffect(() => {
     function handleClickOutside(event: MouseEvent) {
       if (isOpen && chatRef.current && !chatRef.current.contains(event.target as Node)) {
@@ -174,14 +179,15 @@ const FloatingChatbot: React.FC = () => {
     return () => {
       document.removeEventListener("mousedown", handleClickOutside)
     }
-  }, [isOpen]) // Re-run effect if isOpen changes
+  }, [isOpen])
 
   return (
-    // --- MODIFICATION: Positioning is now fixed to the bottom-right on all screen sizes ---
+    // This container correctly positions the chatbot in the bottom-right
     <div className="fixed bottom-4 right-4 z-50">
       {isOpen && (
         <div 
           ref={chatRef} 
+          // This makes the chatbot responsive for mobile and desktop
           className="w-[calc(100vw-2rem)] h-[85vh] sm:w-[380px] sm:h-[600px] transition-all duration-300 ease-out"
         >
           <ChatbotUI setIsOpen={setIsOpen} />
