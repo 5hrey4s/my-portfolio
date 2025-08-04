@@ -4,29 +4,23 @@ FROM rasa/rasa:3.6.14-full
 # Set the working directory inside the server to /app.
 WORKDIR /app
 
-# Copy your local Rasa files into the server's /app directory.
-COPY ./data /app/data
-COPY ./actions /app/actions
-COPY config.yml domain.yml credentials.yml endpoints.yml /app/
+# --- FIX: Use the --chown flag to set file ownership during the COPY step ---
+# This is a cleaner and more reliable way to handle permissions.
+COPY --chown=1001:1001 ./data /app/data
+COPY --chown=1001:1001 ./actions /app/actions
+COPY --chown=1001:1001 config.yml domain.yml credentials.yml endpoints.yml /app/
 
-# --- FIX: Change ownership of all files in /app to the standard user ---
-# This gives the user permission to write to the files during training.
-RUN chown -R 1001:1001 /app
-
-# Temporarily switch to the root user to install dependencies.
+# Switch to the root user ONLY to install Python dependencies if they exist.
 USER root
-
-# If you have any custom Python packages for your actions, this will install them.
 RUN if [ -f /app/actions/requirements.txt ]; then \
       pip install -r /app/actions/requirements.txt; \
     fi
 
-# Switch back to a standard user for security.
+# Switch to the final, non-root user for all subsequent operations.
 USER 1001
 
-# This is a key step: It trains your Rasa model when the server is being built.
+# Now, as the file owner, train the Rasa model.
 RUN rasa train --force
 
 # This is the final command that runs when the server starts.
-# It starts your Rasa chatbot and makes it available to the internet.
 CMD ["run", "-p", "5005", "--enable-api", "--cors", "*"]
