@@ -311,16 +311,15 @@ export default function PortfolioPage() {
                 {projects.map((project) => (
                   <ProjectCard
                     key={project.id}
-                    image={project.image}
-                    tags={project.tools}
-                    githubLink={project.sourceCode}
-                    liveLink={project.link}
-                    allProjects={projects}
-                    description={project.description}
                     id={project.id}
                     title={project.title}
-                    tools={project.tools}
-                  />
+                    description={project.description}
+                    image={project.image}
+                    tags={project.tools} // Use the 'tags' prop for the tools/technologies
+                    githubLink={project.sourceCode}
+                    liveLink={project.link}
+                    allProjects={projects} // Pass the entire list of projects here
+                />
                 ))}
               </div>
             </div>
