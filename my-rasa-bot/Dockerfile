@@ -1,4 +1,4 @@
-# --- FIX: Use the correct base image for the full Rasa server ---
+# Use the correct base image for the full Rasa server
 FROM rasa/rasa:3.6.14-full
 
 # Set the working directory inside the server to /app.
@@ -9,11 +9,14 @@ COPY ./data /app/data
 COPY ./actions /app/actions
 COPY config.yml domain.yml credentials.yml endpoints.yml /app/
 
+# --- FIX: Change ownership of all files in /app to the standard user ---
+# This gives the user permission to write to the files during training.
+RUN chown -R 1001:1001 /app
+
 # Temporarily switch to the root user to install dependencies.
 USER root
 
 # If you have any custom Python packages for your actions, this will install them.
-# It looks for a requirements.txt file in your 'actions' folder.
 RUN if [ -f /app/actions/requirements.txt ]; then \
       pip install -r /app/actions/requirements.txt; \
     fi
