@@ -18,8 +18,8 @@ export async function POST(request: Request) {
     const transporter = nodemailer.createTransport({
       service: "Gmail", // You can replace this with any email service
       auth: {
-        user: process.env.NEXT_PUBLIC_EMAIL_USER, // Make sure this is without NEXT_PUBLIC_
-        pass: process.env.NEXT_PUBLIC_EMAIL_PASS, // Make sure this is without NEXT_PUBLIC_
+        user: process.env.EMAIL_USER, // Make sure this is without NEXT_PUBLIC_
+        pass: process.env.EMAIL_PASS, // Make sure this is without NEXT_PUBLIC_
       },
     });
 
@@ -96,7 +96,7 @@ export async function POST(request: Request) {
         </html>
       `,
     };
-    
+
 
     // Send email
     // transporter.sendMail(mailOptions, function(error, info){
