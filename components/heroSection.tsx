@@ -15,7 +15,38 @@ import useRotatingText from './useRotatingText'
 
 const projects = [
   {
-    id: 1,
+    id: 1, // --- NEW PROJECT: IntelliTask ---
+    title: "IntelliTask: AI Project Manager",
+    description: "A full-stack, real-time collaborative project management tool inspired by Asana and Jira, featuring AI-powered task generation.",
+    image: "/intellitask-cover.jpg", // Suggested image name
+    tools: ["Next.js", "Node.js", "Express", "Socket.IO", "PostgreSQL", "Supabase", "Tailwind CSS", "TypeScript", "Vercel", "Render"],
+    link: "https://your-intellitask-live-url.com", // Replace with your live project URL
+    sourceCode: "https://github.com/5hrey4s/project-manager", // Replace with your GitHub repo URL
+    features: [
+      "Real-time Kanban board with drag-and-drop functionality using Socket.IO.",
+      "AI-powered task generation and project copilot via OpenAI API integration.",
+      "Secure JWT authentication and role-based access control.",
+      "Comprehensive task management with attachments, comments, priorities, and deadlines.",
+      "Real-time notification system for assignments and mentions."
+    ],
+    challenges: [
+      "Implementing a seamless, low-latency real-time engine with Socket.IO for multi-user synchronization.",
+      "Designing a secure and scalable backend architecture to handle file uploads and user data.",
+      "Integrating the OpenAI API to provide genuinely useful and context-aware assistance to users."
+    ],
+    learnings: [
+      "Gained deep expertise in full-stack development, including building and deploying a decoupled frontend and backend.",
+      "Mastered real-time communication with WebSockets, state management in a collaborative environment, and secure file handling with cloud storage.",
+      "Learned to effectively prompt and integrate Large Language Models (LLMs) to create practical, value-adding user features."
+    ],
+    futureImprovements: [
+      "Implement advanced features like Gantt charts and automated workflow rules.",
+      "Integrate with third-party services like GitHub and Slack.",
+      "Develop a more comprehensive user permissions and roles system."
+    ]
+  },
+  {
+    id: 2,
     title: "Library Management App",
     description: "A scalable library management system utilizing modern technologies and best practices.",
     image: "/pexels-joshsorenson-990432.jpg",
@@ -31,21 +62,20 @@ const projects = [
     challenges: [
       "Implementing robust authentication and role-based access control",
       "Ensuring scalability of database with Vercel PostgreSQL",
-      "Deploying for global accessibility with Vercel"
+      "Deploying for global accessibility"
     ],
     learnings: [
-      "Advanced authentication with NextAuth",
-      "Test-driven development using Vitest",
-      "Optimizing database for scalability with Vercel PostgreSQL"
+        "Mastered NextAuth for secure user authentication.",
+        "Gained experience with Vercel's serverless functions and PostgreSQL.",
+        "Strengthened skills in TypeScript and test-driven development."
     ],
     futureImprovements: [
-      "Add support for additional library features such as e-books",
-      "Enhance admin dashboard with more controls",
-      "Improve user interface for a more intuitive experience"
+        "Add analytics dashboard for library usage.",
+        "Implement automated email reminders for due dates.",
     ]
   },
   {
-    id: 2,
+    id: 3,
     title: "Splitter App",
     description: "A responsive React-based web application designed for bill splitting.",
     image: "/pexels-ishahidsultan-6595970.jpg",
