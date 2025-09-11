@@ -20,7 +20,7 @@ const projects = [
     description: "A full-stack, real-time collaborative project management tool inspired by Asana and Jira, featuring AI-powered task generation.",
     image: "/intellitask-cover.jpg", // Suggested image name
     tools: ["Next.js", "Node.js", "Express", "Socket.IO", "PostgreSQL", "Supabase", "Tailwind CSS", "TypeScript", "Vercel", "Render"],
-    link: "https://your-intellitask-live-url.com", // Replace with your live project URL
+    link: "https://project-manager-r2wc.vercel.app", // Replace with your live project URL
     sourceCode: "https://github.com/5hrey4s/project-manager", // Replace with your GitHub repo URL
     features: [
       "Real-time Kanban board with drag-and-drop functionality using Socket.IO.",
